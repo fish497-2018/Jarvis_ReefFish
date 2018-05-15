@@ -6,6 +6,12 @@ Experimental questions: How have the species present in Bootless Bay changed ove
 
 Install and load packages "dplyr" and "ggplot2"
 
+# Plan for Data Analysis
+
+1. Use select() To isolate Genus, species, Bootless, Museum.Bootless, and Fished columns
+
+2. 
+
 # Files:
 
 1. Data/Supplemental201.csv -- Data file showing presence or absence of species in 5 Papua New Guinea and a historical museum collection.
