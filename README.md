@@ -2,7 +2,7 @@
 
 Analysis of data comparing the presence and absence of 470 coral reef fish species in 5 dive sites in Papua New Guinea, as well as a historical museum collection from one site (Bootless Bay)
 
-Dat source: https://figshare.com/articles/Species_of_coral_reef_fish_considered_in_analysis/4072587
+Data source: https://figshare.com/articles/Species_of_coral_reef_fish_considered_in_analysis/4072587
 
 Experimental questions: How have the species present in Bootless Bay changed over time? Does fishing pressure have any relationship to these changes?
 
