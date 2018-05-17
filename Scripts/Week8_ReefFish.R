@@ -55,6 +55,7 @@ ggplot(reef_fish_bootless_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
   labs(x = "Species Present by Location", y = "Total Species Count")
+ggsave("Figures/Species_Bootless_vs_Museum.jpg")
 
 # Same procedure for fished/not fished
 
@@ -62,8 +63,10 @@ ggplot(bootless_fished_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
   labs(x = "Species Present by Location", y = "Total Species Count")
+ggsave("Figures/Species_Fished.jpg")
 
 ggplot(bootless_notfished_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
   labs(x = "Species Present by Location", y = "Total Species Count")
+ggsave("Figures/Species_NotFished.jpg")
