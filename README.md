@@ -14,7 +14,11 @@ Install and load packages "dplyr" and "ggplot2"
 
 2. Use filter() to create tables of species fished and not fished at Bootless
 
-3.
+3. Use group_by() and summarize() to create tables of number of species in each genus 
+
+4. Use filter() to remove rows with no representatives from a Genus from Bootless Bay and Museum.Bootless
+
+5. Use geom_point() to create scatterplots of species present by location vs the total species count for both locations
 
 # Files:
 
