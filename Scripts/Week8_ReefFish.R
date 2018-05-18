@@ -3,7 +3,7 @@
 reef_fish <- read.csv("Data/Supplemental201.csv")
 View(reef_fish)
 
-# Isolate useful columns
+# Isolate useful columns, filter out rows where species were not present at either location
 
 library(tidyverse)
 
