@@ -25,3 +25,9 @@ Install and load packages "dplyr" and "ggplot2"
 1. Data/Supplemental201.csv -- Data file showing presence or absence of species in 5 Papua New Guinea and a historical museum collection.
 
 2. Scripts/Week8_ReefFishR -- Script of code used to analyze data
+
+3. Figures/Species_Bootless_vs_Museum.jpg -- Species present by location at Bootless Bay (blue) and the Bootless Museum collection (red) versus the total species count
+
+4. Figures/Species_Fished.jpg -- Species present by location at Bootless Bay (blue) and the Bootless Museum collection (red) versus the total species count for only commercially fished species
+
+5. Figures/Species_NotFished.jpg -- Species present by location at Bootless Bay (blue) and the Bootless Museum collection (red) versus the total species count for only unfished species
