@@ -3,13 +3,15 @@ title: "Reef Fish"
 output: html_document
 ---
 
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Setup Relevant Data
 
-```{r, include=FALSE}
+```{r, echo=FALSE}
 library(tidyverse)
 reef_fish <- read.csv("Data/Supplemental201.csv")
 ```
@@ -19,6 +21,15 @@ reef_fish_bootless <- select(reef_fish, Genus, species, Bootless, Museum.Bootles
   filter(Bootless > 0 | Museum.Bootless > 0) %>% 
   filter(Bootless < 50)
 View(reef_fish_bootless)
+```
+
+```{r}
+reef_fish_bootless_sp <- group_by(reef_fish_bootless, Genus) %>%
+  summarise(
+    bootless = sum(Bootless),
+    Museum.Bootless = sum(Museum.Bootless),
+    n_species = n())
+View(reef_fish_bootless_sp)
 ```
 
 ```{r}
