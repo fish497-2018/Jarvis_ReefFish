@@ -1,0 +1,39 @@
+---
+title: "Reef Fish"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Setup Relevant Data
+
+```{r, include=FALSE}
+library(tidyverse)
+reef_fish <- read.csv("Data/Supplemental201.csv")
+```
+
+```{r}
+reef_fish_bootless <- select(reef_fish, Genus, species, Bootless, Museum.Bootless, Fished) %>% 
+  filter(Bootless > 0 | Museum.Bootless > 0) %>% 
+  filter(Bootless < 50)
+View(reef_fish_bootless)
+```
+
+```{r}
+ggplot(reef_fish_bootless_sp) +
+  geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
+  geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
+  labs(x = "Species Present by Location", y = "Total Species Count")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
