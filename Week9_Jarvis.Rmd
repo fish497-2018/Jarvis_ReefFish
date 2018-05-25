@@ -11,14 +11,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include=FALSE}
 library(tidyverse)
-install.packages("kableExtra")
 library(kableExtra)
 reef_fish <- read.csv("Data/Supplemental201.csv")
 ```
 
 ## Modifying Raw Data
 
-To begin analyzing the raw data, I used dplyr commands to select columns relevant to my research interest. I used the filter commmand to filter out rows where species were not present at either location, and to eliminate a row provided in the raw data totaling the amount of species seen at each location.
+To begin analyzing the raw data, I used dplyr commands to select columns relevant to my research interest[^1]. I used the filter commmand to filter out rows where species were not present at either location, and to eliminate a row provided in the raw data totaling the amount of species seen at each location.
+
+[^1]: Specifically, I selected columns with the following data: Genus, species, presence/absence in Bootless Bay (21st century), presence/absence in Bootless Bay museum collection (1881-1889), and fishing pressure (noted by fished/not fished).
 
 ```{r, warning=FALSE}
 reef_fish_bootless <- select(reef_fish, Genus, species, Bootless, Museum.Bootless, Fished) %>% 
@@ -26,7 +27,7 @@ reef_fish_bootless <- select(reef_fish, Genus, species, Bootless, Museum.Bootles
   filter(Bootless < 50)
 ```
 
-## Separating "Fished" from "Not Fished"
+## Separating by Fishing Pressure
 
 After isolating the data I needed, I made separate data frames for species that were fished and not fished. This would later help me see if fishing pressure had anything to do with what trends might appear.
 
@@ -73,17 +74,34 @@ bootless_notfished_sp <- group_by(reef_fish_bootless_notfished, Genus) %>%
 
 ## Graphing Data
 
+After establishing the relationships numerically in data frames, I made scatterplots to visually represent whatever trends might exist. I used ggplot2 to plot two scatterplots on one graph; the blue points represent species per genus seen at Bootless Bay in the 21st century, and the red points represent species per genus present in the museum collection (1881-1889). Both of these are plotted against the total species count seen across both locations for comparsion. I added trasparency to the points to make the density of overlapping points clear.
+
 ```{r, echo=FALSE}
 ggplot(reef_fish_bootless_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
-  labs(x = "Species Present by Location", y = "Total Species Count")
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggtitle("Species Richness in Bootless Bay Over Time")
 ```
 
+This graphs shows that there is in fact higher species richness in modern studies of Bootless Bay, indicated by slightly higher species count per genus compared to the total species presence. This could be the result of indroduction of non-native species via aquarium trade or ballast water. It's also possible that the museum collection does not accurately represent the full diversity of species in Bootles Bay in 1881.
 
+I repeated this process for the data separated by fishing pressure. 
 
 ```{r, echo=FALSE}
-
+ggplot(bootless_fished_sp) +
+  geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
+  geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggtitle("Species Richness in Bootless Bay Over Time: Species Under Fishing Pressure")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r, echo=FALSE}
+ggplot(bootless_notfished_sp) +
+  geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
+  geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggtitle("Species Richness in Bootless Bay Over Time: Species Free from Fishing Pressure")
+```
+
+These graphs show similar trends, with slightly more species seen in more present times compared to the total species count.
