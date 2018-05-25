@@ -54,7 +54,8 @@ View(bootless_notfished_sp)
 ggplot(reef_fish_bootless_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
-  labs(x = "Species Present by Location", y = "Total Species Count")
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggtitle("Species Richness in Bootless Bay Over Time")
 ggsave("Figures/Species_Bootless_vs_Museum.jpg")
 
 # Same procedure for fished/not fished
@@ -62,11 +63,13 @@ ggsave("Figures/Species_Bootless_vs_Museum.jpg")
 ggplot(bootless_fished_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
-  labs(x = "Species Present by Location", y = "Total Species Count")
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggtitle("Species Richness in Bootless Bay Over Time: Species Under Fishing Pressure")
 ggsave("Figures/Species_Fished.jpg")
 
 ggplot(bootless_notfished_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
-  labs(x = "Species Present by Location", y = "Total Species Count")
+  labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
+  ggitle("Species Richness in Bootless Bay Over Time: Species Free from Fishing Pressure")
 ggsave("Figures/Species_NotFished.jpg")
