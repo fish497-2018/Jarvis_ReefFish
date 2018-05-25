@@ -71,5 +71,5 @@ ggplot(bootless_notfished_sp) +
   geom_point(aes(x = bootless, y = n_species), color = "blue", size = 3, alpha = 0.4) +
   geom_point(aes(x = Museum.Bootless, y = n_species), color = "red", size = 3, alpha = 0.4) +
   labs(x = "Species per Genus Present by Location", y = "Total Species Count per Genus") +
-  ggitle("Species Richness in Bootless Bay Over Time: Species Free from Fishing Pressure")
+  ggtitle("Species Richness in Bootless Bay Over Time: Species Free from Fishing Pressure")
 ggsave("Figures/Species_NotFished.jpg")
