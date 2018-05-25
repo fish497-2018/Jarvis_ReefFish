@@ -3,7 +3,7 @@ title: "Reef Fish Abundance Across Time"
 output: html_document
 ---
 
-
+The raw data compares the presence and absence of 470 coral reef fish species in 5 dive sites in Papua New Guinea, as well as a historical museum collection from one site (Bootless Bay, circa 1881). This analysis examines changes in species richness in Bootless Bay over time, and whether fishing pressure correlates to any changes seen.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include=FALSE}
 library(tidyverse)
+install.packages("kableExtra")
+library(kableExtra)
 reef_fish <- read.csv("Data/Supplemental201.csv")
 ```
 
@@ -18,11 +20,25 @@ reef_fish <- read.csv("Data/Supplemental201.csv")
 
 To begin analyzing the raw data, I used dplyr commands to select columns relevant to my research interest. I used the filter commmand to filter out rows where species were not present at either location, and to eliminate a row provided in the raw data totaling the amount of species seen at each location.
 
-```{r}
+```{r, warning=FALSE}
 reef_fish_bootless <- select(reef_fish, Genus, species, Bootless, Museum.Bootless, Fished) %>% 
   filter(Bootless > 0 | Museum.Bootless > 0) %>% 
   filter(Bootless < 50)
 ```
+
+## Separating "Fished" from "Not Fished"
+
+After isolating the data I needed, I made separate data frames for species that were fished and not fished. This would later help me see if fishing pressure had anything to do with what trends might appear.
+
+```{r, warning=FALSE}
+reef_fish_bootless_fished <- filter(reef_fish_bootless, Fished == "fished" | Fished == "Fished")
+
+reef_fish_bootless_notfished <- filter(reef_fish_bootless, Fished == "not fished")
+```
+
+## Making Useful Tables
+
+After the raw data was sorted, I grouped all the reef fish by genus, then summed the sepcies seen per genus in Bootless Bay now vs. the museum collection. The "n_species" column showed the total sum of species per genus seen across both locations.
 
 ```{r}
 reef_fish_bootless_sp <- group_by(reef_fish_bootless, Genus) %>%
@@ -30,8 +46,32 @@ reef_fish_bootless_sp <- group_by(reef_fish_bootless, Genus) %>%
     bootless = sum(Bootless),
     Museum.Bootless = sum(Museum.Bootless),
     n_species = n())
-knitr::kable(head(reef_fish_bootless_sp, n = 20), format = "html")
 ```
+
+A preview of the first 20 rows of this table is provided below.
+
+```{r, echo=FALSE}
+knitr::kable(head(reef_fish_bootless_sp, n = 20), format = "html") %>% 
+  kable_styling(bootstrap_options = "striped")
+```
+
+I repeated this process for the data frames organized by fishing pressure.
+
+```{r, warning=FALSE}
+bootless_fished_sp <- group_by(reef_fish_bootless_fished, Genus) %>% 
+  summarise(
+    bootless = sum(Bootless),
+    Museum.Bootless = sum(Museum.Bootless),
+    n_species = n())
+
+bootless_notfished_sp <- group_by(reef_fish_bootless_notfished, Genus) %>% 
+  summarise(
+    bootless = sum(Bootless),
+    Museum.Bootless = sum(Museum.Bootless),
+    n_species = n())
+```
+
+## Graphing Data
 
 ```{r, echo=FALSE}
 ggplot(reef_fish_bootless_sp) +
